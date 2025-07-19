@@ -9,6 +9,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+      /* Utility to hide scrollbars for a cleaner carousel look */
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+    </style>
     <script>
       tailwind.config = {
         theme: {
@@ -17,7 +27,7 @@
               'orbitron': ['Orbitron', 'sans-serif'],
             },
             animation: {
-              'fade-in-down': 'fade-in-down 1.5s ease-out forwards',
+              'fade-in-down': 'fade-in-down 1s ease-out forwards',
               'bounce': 'bounce 2s infinite',
             },
             keyframes: {
