@@ -3,20 +3,20 @@ import { Mix } from '../types';
 
 // Using placeholder audio from a free source. Replace with actual Google Drive links.
 const placeholderAudio = [
-  "https://docs.google.com/uc?export=download&id=1Paf3vdXK1-rIZmg8iuO5rbFo3Sg-D_dm", // 90's
-  "https://docs.google.com/uc?export=download&id=14P1r3hcLb3tX9LHI0zGjf_h67OF0grUu", // afro house 
-  "https://docs.google.com/uc?export=download&id=1G8-SzdaA4vcDP54AtbuXzIg7jZjDXHLE", // deep house latino
-  "https://docs.google.com/uc?export=download&id=11k2kW-p6uOJY9oxsRa7k8MvNJ3NQssE5", // electro diversity 
-  "https://docs.google.com/uc?export=download&id=1HQ9cmbvJ9qnQEae6uTPHLD9rP628DaGK", // French touch
-  "https://docs.google.com/uc?export=download&id=1T70bL1SzCX4u7yv-Ebz0mhPbtkW5sTd0", // Jazz mix banger 
-  "https://docs.google.com/uc?export=download&id=1wgUpTXBckpn1Rw_D-ub5GmX3tlQhpRjs", // Lounge
-  "https://docs.google.com/uc?export=download&id=1g7_12ane1abW1zLzKSJzpKKXaYuGJEoX", // Mix tech house
-  "https://docs.google.com/uc?export=download&id=1AMuC2JiU1NvjieuSrLkqN-DqumLs3rsE", // Mix arabic electro 
-  "https://docs.google.com/uc?export=download&id=13p7njjSuyOGRVsHUaFIrLUVg0GbJ_anb", // Mix chill
-  "https://docs.google.com/uc?export=download&id=1guKX9GjjQThbKs7V4nXwBqYjr16HLHAr", // Mix orient electro 
-  "https://docs.google.com/uc?export=download&id=1LDdR_VTis8-escnlAVQKxVFk7tfqcUWz", // Mix soirée BDE
-  "https://docs.google.com/uc?export=download&id=1Nm-7n0GEIu4wUVLXio9ahp6urUv2p-mu", // tech house
-  "https://docs.google.com/uc?export=download&id=1y_HvzvNHLOA9GGDsNH0TQI_VHACVj5hL" // tech house latino
+  "https://drive.google.com/file/d/1G8-SzdaA4vcDP54AtbuXzIg7jZjDXHLE/view?usp=drive_link", // 90's
+  "https://drive.google.com/file/d/11k2kW-p6uOJY9oxsRa7k8MvNJ3NQssE5/view?usp=drive_link", // afro house 
+  "https://drive.google.com/file/d/1HQ9cmbvJ9qnQEae6uTPHLD9rP628DaGK/view?usp=drive_link", // deep house latino
+  "https://drive.google.com/file/d/1T70bL1SzCX4u7yv-Ebz0mhPbtkW5sTd0/view?usp=drive_link", // electro diversity 
+  "https://drive.google.com/file/d/1wgUpTXBckpn1Rw_D-ub5GmX3tlQhpRjs/view?usp=drive_link", // French touch
+  "https://drive.google.com/file/d/1g7_12ane1abW1zLzKSJzpKKXaYuGJEoX/view?usp=drive_link", // Jazz mix banger 
+  "https://drive.google.com/file/d/1AMuC2JiU1NvjieuSrLkqN-DqumLs3rsE/view?usp=drive_link", // Lounge
+  "https://drive.google.com/file/d/13p7njjSuyOGRVsHUaFIrLUVg0GbJ_anb/view?usp=drive_link", // Mix tech house
+  "https://drive.google.com/file/d/1guKX9GjjQThbKs7V4nXwBqYjr16HLHAr/view?usp=drive_link", // Mix arabic electro 
+  "https://drive.google.com/file/d/1LDdR_VTis8-escnlAVQKxVFk7tfqcUWz/view?usp=drive_link", // Mix chill
+  "https://drive.google.com/file/d/1Nm-7n0GEIu4wUVLXio9ahp6urUv2p-mu/view?usp=drive_link", // Mix orient electro 
+  "https://drive.google.com/file/d/1y_HvzvNHLOA9GGDsNH0TQI_VHACVj5hL/view?usp=drive_link", // Mix soirée BDE
+  "", // tech house
+  "" // tech house latino
 ];
 
 export const houseMixes: Mix[] = [
