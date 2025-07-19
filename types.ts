@@ -5,4 +5,5 @@ export interface Mix {
   duration: string;
   genre: string;
   audioSrc: string;
+  imageUrl?: string;
 }

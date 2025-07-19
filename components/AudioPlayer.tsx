@@ -89,7 +89,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ track, isPlaying, onTogglePla
         />
         <div className="container mx-auto flex items-center gap-4 text-white">
           <div className="flex items-center gap-3 w-1/4">
-             <img src={`https://picsum.photos/seed/${track.id}/64/64`} alt={track.title} className="w-12 h-12 rounded-md"/>
+             <img src={track.imageUrl || `https://picsum.photos/seed/${track.id}/64/64`} alt={track.title} className="w-12 h-12 rounded-md object-cover"/>
              <div>
                 <p className="font-bold text-sm truncate">{track.title}</p>
                 <p className="text-xs text-zinc-400">{track.genre}</p>

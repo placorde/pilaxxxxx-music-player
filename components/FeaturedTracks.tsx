@@ -1,8 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Mix } from '../types';
 import MixList from './MixList';
 import { danceGenres, favouriteDanceTracks } from '../data/mixes';
+import { BackwardIcon, ForwardIcon } from './icons';
 
 interface FavouriteDanceTracksProps {
   onPlayTrack: (track: Mix) => void;
@@ -12,6 +13,43 @@ interface FavouriteDanceTracksProps {
 
 const FavouriteDanceTracks: React.FC<FavouriteDanceTracksProps> = ({ onPlayTrack, currentTrack, isPlaying }) => {
   const [selectedGenre, setSelectedGenre] = useState<string>(danceGenres[0]);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const checkForScroll = useCallback(() => {
+    const el = scrollContainerRef.current;
+    if (el) {
+      const hasOverflow = el.scrollWidth > el.clientWidth;
+      setCanScrollLeft(el.scrollLeft > 0);
+      setCanScrollRight(hasOverflow && el.scrollLeft < el.scrollWidth - el.clientWidth - 1);
+    }
+  }, []);
+
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (el) {
+      checkForScroll();
+      el.addEventListener('scroll', checkForScroll, { passive: true });
+      window.addEventListener('resize', checkForScroll);
+
+      return () => {
+        el.removeEventListener('scroll', checkForScroll);
+        window.removeEventListener('resize', checkForScroll);
+      };
+    }
+  }, [checkForScroll]);
+
+  const scroll = (direction: 'left' | 'right') => {
+    const el = scrollContainerRef.current;
+    if (el) {
+      const scrollAmount = el.clientWidth * 0.8;
+      el.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   return (
     <section>
@@ -20,9 +58,11 @@ const FavouriteDanceTracks: React.FC<FavouriteDanceTracksProps> = ({ onPlayTrack
         <p className="text-zinc-400 mt-2">A handpicked selection of genres to make you move.</p>
       </div>
 
-      <div className="relative mb-8">
-        <div className="absolute top-0 left-0 h-full w-8 bg-gradient-to-r from-[#0a0a0a] to-transparent pointer-events-none z-10 sm:hidden"></div>
-        <div className="flex space-x-2 sm:space-x-4 overflow-x-auto pb-4 px-4 sm:px-0 scrollbar-hide">
+      <div className="relative mb-8 group">
+        <div 
+          ref={scrollContainerRef} 
+          className="flex space-x-2 sm:space-x-4 overflow-x-auto pb-4 px-4 scrollbar-hide"
+        >
           {danceGenres.map((genre) => (
             <button
               key={genre}
@@ -37,7 +77,26 @@ const FavouriteDanceTracks: React.FC<FavouriteDanceTracksProps> = ({ onPlayTrack
             </button>
           ))}
         </div>
-        <div className="absolute top-0 right-0 h-full w-8 bg-gradient-to-l from-[#0a0a0a] to-transparent pointer-events-none z-10 sm:hidden"></div>
+        
+        {canScrollLeft && (
+          <button
+            onClick={() => scroll('left')}
+            className="absolute left-0 sm:left-2 top-1/2 -translate-y-1/2 z-20 bg-black/50 rounded-full p-1.5 text-white hover:bg-cyan-500/50 transition-all opacity-0 group-hover:opacity-100 disabled:opacity-0"
+            aria-label="Scroll left"
+          >
+            <BackwardIcon className="w-5 h-5" />
+          </button>
+        )}
+        
+        {canScrollRight && (
+          <button
+            onClick={() => scroll('right')}
+            className="absolute right-0 sm:right-2 top-1/2 -translate-y-1/2 z-20 bg-black/50 rounded-full p-1.5 text-white hover:bg-cyan-500/50 transition-all opacity-0 group-hover:opacity-100 disabled:opacity-0"
+            aria-label="Scroll right"
+          >
+            <ForwardIcon className="w-5 h-5" />
+          </button>
+        )}
       </div>
 
       <div className="max-w-4xl mx-auto">

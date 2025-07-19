@@ -10,7 +10,7 @@ const Hero: React.FC = () => {
       ></div>
       <div className="absolute top-0 left-0 w-full h-full bg-black/60 z-10"></div>
       <div className="relative z-20 px-4">
-        <h1 className="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-orbitron font-black text-white tracking-widest uppercase animate-fade-in-down">
+        <h1 className="text-5xl sm:text-7xl md:text-9xl lg:text-[10rem] font-orbitron font-black text-white tracking-tight sm:tracking-widest uppercase animate-fade-in-down">
           Pilaxxxxx
         </h1>
       </div>
