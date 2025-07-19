@@ -3,7 +3,7 @@ import { Mix } from '../types';
 
 // Using placeholder audio from a free source. Replace with actual Google Drive links.
 const placeholderAudio = [
-  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+  "https://drive.google.com/file/d/1DAcVEA75Vh-ANxB_g1VquC-jm6jyGZpr/view?usp=drive_link",
   "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
   "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
   "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
