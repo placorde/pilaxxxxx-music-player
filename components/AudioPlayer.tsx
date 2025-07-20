@@ -78,7 +78,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ track, isPlaying, onTogglePla
   
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50">
-      <div className="bg-black/50 backdrop-blur-lg border-t border-zinc-800 p-3 shadow-lg">
+      <div className="bg-black/50 backdrop-blur-lg border-t border-zinc-800 p-4 shadow-lg">
         <audio
           ref={audioRef}
           src={track.audioSrc}
@@ -87,48 +87,55 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ track, isPlaying, onTogglePla
           onEnded={onEnded}
           preload="auto"
         />
-        <div className="container mx-auto flex items-center gap-4 text-white">
-          <div className="flex items-center gap-3 w-1/4">
-             <img src={track.imageUrl || `https://picsum.photos/seed/${track.id}/64/64`} alt={track.title} className="w-12 h-12 rounded-md object-cover"/>
-             <div>
-                <p className="font-bold text-sm truncate">{track.title}</p>
-                <p className="text-xs text-zinc-400">{track.genre}</p>
+        <div className="container mx-auto flex flex-col md:flex-row items-center gap-4 text-white">
+        
+          {/* Track Info */}
+          <div className="w-full md:w-1/4 flex items-center gap-3">
+             <img src={track.imageUrl || `https://picsum.photos/seed/${track.id}/64/64`} alt={track.title} className="w-14 h-14 rounded-md object-cover flex-shrink-0"/>
+             <div className="overflow-hidden">
+                <p className="font-bold text-base truncate">{track.title}</p>
+                <p className="text-sm text-zinc-400 truncate">{track.genre}</p>
              </div>
           </div>
 
-          <div className="flex-grow flex items-center gap-2 w-1/2">
-            <span className="text-xs text-zinc-400 w-12 text-right">{formatTime(progress)}</span>
-            <input
-              type="range"
-              min="0"
-              max={duration}
-              value={progress}
-              onChange={handleSeek}
-              className="w-full h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-cyan-400 [&::-webkit-slider-thumb]:rounded-full"
-            />
-            <span className="text-xs text-zinc-400 w-12">{formatTime(duration)}</span>
+          {/* Player Controls & Progress */}
+          <div className="w-full md:flex-grow flex flex-col gap-2">
+            <div className="flex items-center justify-center gap-5">
+               <button onClick={() => skipTime(-15)} className="text-zinc-400 hover:text-white transition-colors disabled:opacity-50" disabled={!duration}><SkipBackward15Icon className="w-6 h-6"/></button>
+               <button onClick={onTogglePlay} className="bg-cyan-400 text-black rounded-full p-3 w-12 h-12 flex items-center justify-center transform hover:scale-105 transition-transform disabled:bg-zinc-600" disabled={!duration}>
+                  {isPlaying ? <PauseIcon className="w-6 h-6"/> : <PlayIcon className="w-6 h-6"/>}
+               </button>
+               <button onClick={() => skipTime(15)} className="text-zinc-400 hover:text-white transition-colors disabled:opacity-50" disabled={!duration}><SkipForward15Icon className="w-6 h-6"/></button>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-zinc-400 w-12 text-right">{formatTime(progress)}</span>
+              <input
+                type="range"
+                min="0"
+                max={duration || 1}
+                value={progress}
+                onChange={handleSeek}
+                disabled={!duration}
+                className="w-full h-1.5 bg-zinc-700 rounded-lg appearance-none cursor-pointer disabled:bg-zinc-800 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3.5 [&::-webkit-slider-thumb]:h-3.5 [&::-webkit-slider-thumb]:bg-cyan-400 [&::-webkit-slider-thumb]:rounded-full disabled:[&::-webkit-slider-thumb]:bg-zinc-600"
+              />
+              <span className="text-xs text-zinc-400 w-12">{formatTime(duration)}</span>
+            </div>
           </div>
-
-          <div className="flex items-center justify-end gap-3 w-1/4">
-             <button onClick={() => skipTime(-15)} className="text-zinc-400 hover:text-white transition-colors"><SkipBackward15Icon className="w-5 h-5"/></button>
-             <button onClick={onTogglePlay} className="bg-cyan-400 text-black rounded-full p-2 w-10 h-10 flex items-center justify-center">
-                {isPlaying ? <PauseIcon className="w-5 h-5"/> : <PlayIcon className="w-5 h-5"/>}
+          
+          {/* Volume Control */}
+          <div className="w-full md:w-1/4 flex items-center justify-center md:justify-end gap-2">
+             <button onClick={toggleMute} className="text-zinc-400 hover:text-white transition-colors">
+                 {isMuted || volume === 0 ? <VolumeMuteIcon className="w-6 h-6"/> : <VolumeUpIcon className="w-6 h-6"/>}
              </button>
-             <button onClick={() => skipTime(15)} className="text-zinc-400 hover:text-white transition-colors"><SkipForward15Icon className="w-5 h-5"/></button>
-             <div className="flex items-center gap-2 group">
-                <button onClick={toggleMute} className="text-zinc-400 hover:text-white transition-colors">
-                    {isMuted || volume === 0 ? <VolumeMuteIcon className="w-5 h-5"/> : <VolumeUpIcon className="w-5 h-5"/>}
-                </button>
-                <input
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.01"
-                  value={isMuted ? 0 : volume}
-                  onChange={handleVolumeChange}
-                  className="w-20 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-cyan-400 [&::-webkit-slider-thumb]:rounded-full"
-                />
-             </div>
+             <input
+               type="range"
+               min="0"
+               max="1"
+               step="0.01"
+               value={isMuted ? 0 : volume}
+               onChange={handleVolumeChange}
+               className="w-24 h-1.5 bg-zinc-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3.5 [&::-webkit-slider-thumb]:h-3.5 [&::-webkit-slider-thumb]:bg-cyan-400 [&::-webkit-slider-thumb]:rounded-full"
+             />
           </div>
         </div>
       </div>

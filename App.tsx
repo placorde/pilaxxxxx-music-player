@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import { Mix } from './types';
 import { houseMixes, electroMixes } from './data/mixes';
@@ -7,6 +6,7 @@ import MusicSection from './components/MusicSection';
 import FavouriteDanceTracks from './components/FeaturedTracks';
 import Contact from './components/Contact';
 import AudioPlayer from './components/AudioPlayer';
+import AICreativeSuite from './components/AICreativeSuite';
 
 // New AboutMe component defined locally to avoid creating new files
 const AboutMe: React.FC = () => {
@@ -82,6 +82,7 @@ const App: React.FC = () => {
             currentTrack={currentTrack} 
             isPlaying={isPlaying}
         />
+        <AICreativeSuite />
       </main>
       <Contact />
 
